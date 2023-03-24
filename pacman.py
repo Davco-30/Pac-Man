@@ -1,19 +1,19 @@
-"""Pacman, classic arcade game.
-Exercises
-1. Change the board.
-2. Change the number of ghosts.
-3. Change where pacman starts.
-4. Make the ghosts faster/slower.
-5. Make the ghosts smarter.
-"""
+
+"""PACMAN Game
+Cambios:
+1. Los fantasmas sean más listos
+2. Cambiar el tablero
+3. Hacer que los fantasmas vayan mas rápido
+
+
 
 from random import choice
 from turtle import *
-
 from freegames import floor, vector
 
 state = {'score': 0}
-path = Turtle(visible=False)
+path = Turtle(visible=True)
+path.color('green')
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
@@ -50,7 +50,6 @@ tiles = [
 
 
 def square(x, y):
-    """Draw square using path at (x, y)."""
     path.up()
     path.goto(x, y)
     path.down()
@@ -63,8 +62,7 @@ def square(x, y):
     path.end_fill()
 
 
-def offset(point):
-    """Return offset of point in tiles."""
+def offset(point): 
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
@@ -72,7 +70,6 @@ def offset(point):
 
 
 def valid(point):
-    """Return True if point is valid in tiles."""
     index = offset(point)
 
     if tiles[index] == 0:
@@ -87,7 +84,6 @@ def valid(point):
 
 
 def world():
-    """Draw world using path."""
     bgcolor('black')
     path.color('blue')
 
@@ -106,7 +102,6 @@ def world():
 
 
 def move():
-    """Move pacman and all ghosts."""
     writer.undo()
     writer.write(state['score'])
 
@@ -128,10 +123,36 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    for point, course in ghosts:
-        if valid(point + course):
+    for point, course in ghosts: 
+        if valid(point + course): 
             point.move(course)
         else:
+            if(pacman.y >= point.y):
+                if(pacman.x >= point.x):
+                    options = [
+                        vector(5, 0),
+                        vector(0, 5)
+                    ]
+                
+                else:
+                    options = [
+                        vector(-5, 0),
+                        vector(0, 5)
+                    ]
+
+            else:
+                if(pacman.x >= point.x):
+                    options = [
+                        vector(5, 0),
+                        vector(0, -5)
+                    ]
+                
+                else:
+                    options = [
+                        vector(-5, 0),
+                        vector(0, -5)
+                    ]
+
             options = [
                 vector(12, 0),
                 vector(-12, 0),
@@ -141,6 +162,8 @@ def move():
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
+            #print(f"EL fantasma está en la coordenadas: {point.x} , {point.y}")
+            #print(f"EL pacman está en la coordenadas: {pacman.x} , {pacman.y}")
 
         up()
         goto(point.x + 10, point.y + 10)
@@ -149,7 +172,7 @@ def move():
     update()
 
     for point, course in ghosts:
-        if abs(pacman - point) < 20:
+        if abs(pacman - point) < 20: #20 píxeles
             return
 
     ontimer(move, 100)
