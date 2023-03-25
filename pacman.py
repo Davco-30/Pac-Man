@@ -4,7 +4,7 @@ Cambios:
 1. Los fantasmas sean más listos
 2. Cambiar el tablero
 3. Hacer que los fantasmas vayan mas rápido
-
+"""
 
 
 from random import choice
@@ -17,32 +17,33 @@ path.color('green')
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
+#Hacemos los fantasmas más rápidos
 ghosts = [
-    [vector(-180, 160), vector(12, 0)],
-    [vector(-180, -160), vector(0, 12)],
-    [vector(100, 160), vector(0, -12)],
-    [vector(100, -160), vector(-12, 0)],
+    [vector(-180, 160), vector(10, 0)],
+    [vector(-180, -160), vector(0, 10)],
+    [vector(100, 160), vector(0, -10)],
+    [vector(100, -160), vector(-10, 0)],
 ]
 # fmt: off
 tiles = [
     0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
     1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0,
-    1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0,
+    1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+    1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0,
+    1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-    1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
+    1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
     1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0,
     1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
     1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0,
     1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
     1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0,
-    1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+    1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+    1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
@@ -123,47 +124,67 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    for point, course in ghosts: 
-        if valid(point + course): 
+    #Hacemos los fantasmas más rápidos y más listos
+    for point, course in ghosts:
+        if valid(point + course):
             point.move(course)
         else:
-            if(pacman.y >= point.y):
+            if(pacman.y <= point.y):
                 if(pacman.x >= point.x):
-                    options = [
-                        vector(5, 0),
-                        vector(0, 5)
-                    ]
-                
+                    if valid(point + vector(10,0)) or valid(point + vector(0,-10)):
+                        options = [
+                            vector(10, 0),
+                            vector(0, -10)
+                        ]
+                    else:
+                        options = [
+                            vector(-10, 0),
+                            vector(0, 10)
+                        ]
+
+               
                 else:
-                    options = [
-                        vector(-5, 0),
-                        vector(0, 5)
-                    ]
+                    if valid(point + vector(-10,0)) or valid(point + vector(0,-10)):
+                        options = [
+                            vector(-10, 0),
+                            vector(0, -10)
+                        ]
+                    else:
+                        options = [
+                            vector(10, 0),
+                            vector(0, 10)
+                        ]
 
             else:
                 if(pacman.x >= point.x):
-                    options = [
-                        vector(5, 0),
-                        vector(0, -5)
-                    ]
-                
+                    if(valid(point+vector(10,0)) or valid(point+vector(0,10))):
+                        options = [
+                            vector(10, 0),
+                            vector(0, 10),
+                        ]
+                    else:
+                        options = [
+                            vector(-10, 0),
+                            vector(0, -10),
+                        ]
+               
                 else:
-                    options = [
-                        vector(-5, 0),
-                        vector(0, -5)
-                    ]
+                    if(valid(point+vector(-10,0)) or valid(point+vector(0,10))):
+                        options = [
+                            vector(-10, 0),
+                            vector(0, 10),
+                        ]
+                    else:
+                        options = [
+                            vector(10, 0),
+                            vector(0, -10),
+                        ]
 
-            options = [
-                vector(12, 0),
-                vector(-12, 0),
-                vector(0, 12),
-                vector(0, -12),
-            ]
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
-            #print(f"EL fantasma está en la coordenadas: {point.x} , {point.y}")
-            #print(f"EL pacman está en la coordenadas: {pacman.x} , {pacman.y}")
+        print(f"EL fantasma está en la coordenadas: {point.x} , {point.y}")
+        print(f"EL pacman está en la coordenadas: {pacman.x} , {pacman.y}")
 
         up()
         goto(point.x + 10, point.y + 10)
@@ -176,6 +197,7 @@ def move():
             return
 
     ontimer(move, 100)
+
 
 
 def change(x, y):
@@ -192,10 +214,11 @@ writer.goto(160, 160)
 writer.color('white')
 writer.write(state['score'])
 listen()
-onkey(lambda: change(5, 0), 'Right')
-onkey(lambda: change(-5, 0), 'Left')
-onkey(lambda: change(0, 5), 'Up')
-onkey(lambda: change(0, -5), 'Down')
+# Hacemos el Pac-Man más rápido
+onkey(lambda: change(10, 0), 'Right')
+onkey(lambda: change(-10, 0), 'Left')
+onkey(lambda: change(0, 10), 'Up')
+onkey(lambda: change(0, -10), 'Down')
 world()
 move()
 done()
